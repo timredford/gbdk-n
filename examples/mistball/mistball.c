@@ -14,23 +14,13 @@ void main()
   UBYTE input;
   BOOLEAN spriteMoved;
 
-  /* Initialize sprite palette */
-  OBP1_REG = 0xE0U;
+  sprite_init();
 
-  earthSprite.posx.b.h = 50;
-  earthSprite.posy.b.h = 50;
-  earthSprite.animFrame = 0;
-  earthSprite.animations = earth_tiles;
+  sprite_create(&earthSprite, 0x1000, 0x1000, earth_tiles, 2, earth_data, 0x1C);
 
-
-  SPRITES_8x16;
-  set_sprite_data(0x00, 0x1C, earth_data);
-  set_sprite_tile(0, earthSprite.animations[earthSprite.animFrame]);
-  set_sprite_tile(1, earthSprite.animations[earthSprite.animFrame+1]);
-  move_sprite(0, earthSprite.posx.b.h, earthSprite.posy.b.h);
-  move_sprite(1, earthSprite.posx.b.h + 8, earthSprite.posy.b.h);
   spriteMoved = false;
   SHOW_SPRITES;
+  DISPLAY_ON;
 
   gprintf("hello world");
   while(true)
